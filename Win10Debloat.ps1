@@ -1,5 +1,4 @@
-    Write-Host "Disabling Telemetry..."
-    $ResultText.text += "`r`n" +"Disabling Telemetry..."
+ Write-Host "Disabling Telemetry..."
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection" -Name "AllowTelemetry" -Type DWord -Value 0
     Disable-ScheduledTask -TaskName "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" | Out-Null
@@ -78,10 +77,6 @@
     Write-Host "Enabling F8 boot menu options..."
     bcdedit /set `{current`} bootmenupolicy Legacy | Out-Null
     Write-Host "Stopping and disabling Home Groups services..."
-    Stop-Service "HomeGroupListener" -WarningAction SilentlyContinue
-    Set-Service "HomeGroupListener" -StartupType Disabled
-    Stop-Service "HomeGroupProvider" -WarningAction SilentlyContinue
-    Set-Service "HomeGroupProvider" -StartupType Disabled
     Write-Host "Disabling Remote Assistance..."
     Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Remote Assistance" -Name "fAllowToGetHelp" -Type DWord -Value 0
     Write-Host "Disabling Storage Sense..."
@@ -130,7 +125,6 @@
     }
 
     Write-Host "Changing default Explorer view to This PC..."
-    $ResultText.text += "`r`n" +"Quality of Life Tweaks"
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "LaunchTo" -Type DWord -Value 1
 
     Write-Host "Hiding 3D Objects icon from This PC..."
@@ -147,7 +141,6 @@
 	#Enable-WindowsOptionalFeature -Online -FeatureName "WindowsMediaPlayer" -NoRestart -WarningAction SilentlyContinue | Out-Null
 
     Write-Host "Disable News and Interests"
-    $ResultText.text += "`r`n" +"Disabling Extra Junk"
     Set-ItemProperty -Path "HKCU:\SOFTWARE\Policies\Microsoft\Windows\Windows Feeds" -Name "EnableFeeds" -Type DWord -Value 0
     # Remove "News and Interest" from taskbar
     Set-ItemProperty -Path  "HKCU:\Software\Microsoft\Windows\CurrentVersion\Feeds" -Name "ShellFeedsTaskbarViewMode" -Type DWord -Value 2
@@ -271,5 +264,3 @@ foreach ($service in $services) {
 }
 
     Write-Host "Essential Tweaks Completed - Please Reboot"
-    $ResultText.text = "`r`n" + "Essential Tweaks Done" + "`r`n" + "`r`n" + "Ready for Next Task"
-})
