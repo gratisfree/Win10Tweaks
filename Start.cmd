@@ -1,1 +1,1 @@
-powershell.exe -noprofile -executionpolicy bypass -file .\Win10Debloat.ps1
+powershell.exe -noprofile -executionpolicy bypass -file .\part1.ps1
